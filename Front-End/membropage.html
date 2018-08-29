@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Membro - Torverchain</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1"></script>
+
+  <!-- Custom styles for this template -->
+  <link href="css/simple-sidebar.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <div id="wrapper">
+
+    <!-- Sidebar -->
+    <div id="sidebar-wrapper">
+      <ul class="sidebar-nav">
+        <li class="sidebar-brand">
+          <a href="#">
+                        MEMBRO
+                    </a>
+        </li>
+        <li>
+          <a href="#" id="curriculum">Curriculum</a>
+        </li>
+        <li>
+          <a href="#" id="autorizza">Autorizza Accesso</a>
+        </li>
+        <li>
+          <a href="#" id="revoca">Revoca Accesso</a>
+        </li>
+        <li style="background: red">
+          <a href="index.html"> Logout </a>
+        </li>
+      </ul>
+    </div>
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div class="pos-f-t">
+      <nav class="navbar navbar-dark">
+        <a href="#menu-toggle" id="menu-toggle">
+          <button class="navbar-toggler" type="button" data-toggle="collapse"  aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        </a>
+        <h2>TorverChain</h2>
+		    <div style="style:transparent">.</div>
+      </nav>
+    </div>
+    <div id="page-content-wrapper">
+      <div class="container-fluid">
+        <h1>TorverChain</h1>
+        <p>In Questa pagine viene mostrato il tuo curriculum, la tua storia universitaria</p>
+
+        <div id="curriculumform">
+          <h1>Curriculum</h1>
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Carriera</h5>
+              <p class="card-text">Di seguito verranno mostrate le informazioni personali insieme alla carriera dello studente</p>
+            </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item" id="nome"><b>Nome: </b></li>
+              <li class="list-group-item" id="Cognome"><b>Cognome: </b></li>
+              <li class="list-group-item" id="codiceFiscale">Codice Fiscale: </li>
+              <li class="list-group-item" id="Email"><b>Email: </b></li>
+            </ul>
+          </div><br>
+        </div>
+
+
+
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" id="esamiSostenutiButton">
+  Esami Sostenuti
+</button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Esami Sostenuti</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+              </div>
+              <div class="modal-body">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">id</th>
+                      <th scope="col">Nome</th>
+                      <th scope="col">Data</th>
+                      <th scope="col">Voto</th>
+                      <th scope="col">Crediti</th>
+                    </tr>
+                  </thead>
+                  <tbody id="tableEsamiSostenuti">
+                  </tbody>
+                </table>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#cartificatiPop">
+  Certificati
+</button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="cartificatiPop" tabindex="-1" role="dialog" aria-labelledby="cartificatiPopLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="cartificatiPopLabel">Certificati posseduti</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+              </div>
+              <div class="modal-body">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">ID</th>
+                      <th scope="col">Titolo</th>
+                      <th scope="col">Descrizione</th>
+                      <th scope="col">Ente Rilascio</th>
+                      <th scope="col">Voto</th>
+                    </tr>
+                  </thead>
+                  <tbody id="tableCertificati">
+                  </tbody>
+                </table>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+
+        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#entiAuth">
+  Enti Autorizzati
+</button><br><br>
+
+        <!-- Modal -->
+        <div class="modal fade" id="entiAuth" tabindex="-1" role="dialog" aria-labelledby="entiAuthLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="entiAuthLabel">Lista degli enti autorizzati a vedere le tue informazioni personali</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+              </div>
+              <div class="modal-body">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">ID Ente</th>
+                    </tr>
+                  </thead>
+                  <tbody id="entiAutorizzati">
+
+                  </tbody>
+                </table>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <div style="display:none;" id="autorizzaform">
+          <div class="form-group">
+            <h2>Autorizza Accesso</h2>
+            <label for="ente">Ente:</label>
+            <select class="form-control ente">
+						</select>
+          </div>
+          <button type="submit" class="btn btn-primary" id="autok">Submit</button>
+
+        </div>
+
+        <div style="display:none;" id="revocaform">
+          <div class="form-group">
+            <h2>Revoca Accesso</h2>
+            <label for="enterevoca">Ente:</label>
+            <select class="form-control ente" id="enterevoca">
+						</select>
+          </div>
+          <button type="submit" class="btn btn-danger" id="revok">Submit</button>
+        </div>
+      </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+
+  </div>
+  <!-- /#wrapper -->
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    var IdMember;
+    var email;
+    var firstName;
+    var lastName;
+    var codiceFiscale;
+    var authorized;
+
+
+    var listaEnti = [];
+
+
+    function getListEnti() {
+      Vue.http.get('http://localhost:3000/api/Ente').then(function(response) {
+        if (response.status == "200") {
+          var obj = JSON.parse(response.bodyText)
+          obj.forEach(function(j) {
+            listaEnti.push(j.id);
+          });
+          listaEnti.forEach(function(item) {
+            $(".ente").append("<option id=" + item + ">" + item + "</option>");
+          });
+        } else {
+          console.log(response);
+
+        }
+      })
+    }
+
+
+    function getIdMember() {
+      Vue.http.get('http://localhost:3000/api/system/ping').then(function(response) {
+        if (response.status == "200") {
+          var obj = JSON.parse(response.bodyText)
+          //console.log(obj.participant);
+          IdMember = obj.participant.substring(obj.participant.indexOf("#") + 1);
+          console.log(IdMember);
+          //TODO cancellare la riga qui sotto, è solo per debug
+          //IdMember = "MEMBER1";
+          return IdMember;
+        } else {
+          console.log(response);
+
+        }
+      }).then(function(IdMember) {
+        return Vue.http.get('http://localhost:3000/api/Member/' + IdMember)
+      }).then(function(response) {
+        if (response.status == "200") {
+          console.log(response);
+          var risposta = JSON.parse(response.bodyText);
+          console.log(risposta);
+
+          email = risposta.email;
+          codiceFiscale = risposta.codiceFiscale;
+          firstName = risposta.firstName;
+          lastName = risposta.lastName;
+          $('#email').html('<b>Email: </b>' + email);
+          $('#nome').html('<b>Nome: </b>' + firstName);
+          $('#codiceFiscale').html('<b>Codice Fiscale: </b>' + codiceFiscale);
+          $('#Cognome').html('<b>Cognome: </b>' + lastName);
+          console.log(lastName);
+        } else {
+          console.log(response);
+        }
+      });
+
+    }
+
+
+
+    function getDatiMember() {
+      console.log(IdMember);
+      Vue.http.get('http://localhost:3000/api/Member/' + IdMember).then(function(response) {
+        if (response.status == "200") {
+          var risposta = JSON.parse(response.body);
+          console.log(risposta);
+          return risposta;
+        } else {
+          console.log(response);
+        }
+      });
+    }
+
+    var h = 1;
+    //Funzione che si avvia al caricaento della pagina
+    window.addEventListener("load", function(event) {
+      //al caricamento della pagina popola i dati
+      Vue.http.headers.common['X-Access-Token'] = 'f4jxScvIoquwHalTMDC30Y8TfAgnZgI9qxfjHFvXocDHdqCNAGnfadcMXrc5qn1r';
+      IdMember = getIdMember();
+      getListEnti();
+      caricaEsamiSostenuti();
+      caricaMembriAutorizzati();
+      caricaCertificati();
+      //MemberDescrizione =  getDatiMember();
+
+    });
+
+
+    function ping() {
+      Vue.http.get('http://localhost:3000/api/system/ping').then(function(response) {
+        if (response.status == "200") {
+          console.log(response);
+        } else {
+          console.log(response);
+
+        }
+      })
+    }
+
+
+  </script>
+
+  <!-- Menu Toggle Script -->
+  <script>
+    $("#menu-toggle").click(function(e) {
+      e.preventDefault();
+      $("#wrapper").toggleClass("toggled");
+    });
+
+    $("#curriculum").click(function(e) {
+      e.preventDefault();
+      $("#curriculumform").slideDown();
+      $("#autorizzaform").slideUp();
+      $("#revocaform").slideUp();
+    })
+
+    $("#autorizza").click(function(e) {
+      e.preventDefault();
+      $("#curriculumform").slideUp();
+      $("#autorizzaform").slideDown();
+      $("#revocaform").slideUp();
+    })
+
+    $("#revoca").click(function(e) {
+      e.preventDefault();
+      $("#curriculumform").slideUp();
+      $("#autorizzaform").slideUp();
+      $("#revocaform").slideDown();
+    })
+
+
+    $("#autok").click(function() {
+      let valoreSelezionato = $(".ente").val();
+      console.log(valoreSelezionato);
+      Vue.http.post('http://localhost:3000/api/AuthorizeAccess', {
+        "$class": "org.torverchain.AuthorizeAccess",
+        "memberId": valoreSelezionato
+      }).then(function(response) {
+        if (response.status == "200") {
+          window.location.reload(true);
+          alert("Ente Autorizzato");
+        } else {
+          console.log(response);
+
+        }
+      })
+    });
+
+    $("#revok").click(function() {
+      let valoreSelezionato = $("#enterevoca").val();
+      console.log(valoreSelezionato);
+      Vue.http.post('http://localhost:3000/api/RevokeAccess', {
+        "$class": "org.torverchain.RevokeAccess",
+        "memberId": valoreSelezionato
+      }).then(function(response) {
+        if (response.status == "200") {
+          window.location.reload(true);
+          alert("Ente revocato");
+
+        } else {
+          console.log(response);
+
+        }
+      })
+    });
+
+    function caricaEsamiSostenuti() {
+
+      Vue.http.get('http://localhost:3000/api/system/ping').then(function(response) {
+        if (response.status == "200") {
+          var obj = JSON.parse(response.bodyText)
+          //console.log(obj.participant);
+          IdMember = obj.participant.substring(obj.participant.indexOf("#") + 1);
+          console.log(IdMember);
+          //TODO cancellare la riga qui sotto, è solo per debug
+          //IdMember = "MEMBER1";
+          return IdMember;
+        } else {
+          console.log(response);
+
+        }
+      }).then(function(IdMember) {
+        return Vue.http.get('http://localhost:3000/api/Member/' + IdMember)
+      }).then(function(response) {
+        if (response.status == "200") {
+          console.log(response);
+          var risposta = JSON.parse(response.bodyText);
+          console.log(risposta);
+          return risposta.testSostenuti;
+        } else {
+          console.log(response);
+        }
+      }).then(function(esami) {
+        for (let i = 0; i < esami.length; i++) {
+          esami[i] = esami[i].replace("resource:org.torverchain.Esame#", "");
+        }
+        console.log(esami);
+        for (let i = 0; i < esami.length; i++) {
+          Vue.http.get('http://localhost:3000/api/Esame/' + esami[i]).then(function(response) {
+            if (response.status == "200") {
+              console.log(response);
+              var risposta = JSON.parse(response.bodyText);
+              let id = risposta.id;
+              let nome = risposta.nome;
+              let crediti = risposta.crediti;
+              let descrizione = risposta.descrizione;
+              let voto = risposta.voto;
+              let data = risposta.data;
+              $("#tableEsamiSostenuti").append("<tr> <th>" + id + "</th><td>" + nome + "</td><td>" + data + "</td><td>" + voto + "</td><td>" + crediti + "</td></tr>");
+            } else {
+              console.log(response);
+
+            }
+          });
+        }
+      });
+    }
+
+
+
+
+
+    function caricaMembriAutorizzati() {
+      Vue.http.get('http://localhost:3000/api/system/ping').then(function(response) {
+        if (response.status == "200") {
+          var obj = JSON.parse(response.bodyText)
+          //console.log(obj.participant);
+          IdMember = obj.participant.substring(obj.participant.indexOf("#") + 1);
+          console.log(IdMember);
+          //TODO cancellare la riga qui sotto, è solo per debug
+          //IdMember = "MEMBER1";
+          return IdMember;
+        } else {
+          console.log(response);
+
+        }
+      }).then(function(IdMember) {
+        return Vue.http.get('http://localhost:3000/api/Member/' + IdMember)
+      }).then(function(response) {
+        if (response.status == "200") {
+          console.log(response);
+          var risposta = JSON.parse(response.bodyText);
+          console.log(risposta);
+          let enti = risposta.authorized;
+          for (var i = 0; i < enti.length; i++) {
+            $("#entiAutorizzati").append("<tr><td>" + enti[i] + "</td></tr>");
+
+          }
+        } else {
+          console.log(response);
+        }
+      });
+    }
+
+    function caricaCertificati() {
+      Vue.http.get('http://localhost:3000/api/system/ping').then(function(response) {
+        if (response.status == "200") {
+          var obj = JSON.parse(response.bodyText)
+          //console.log(obj.participant);
+          IdMember = obj.participant.substring(obj.participant.indexOf("#") + 1);
+          console.log(IdMember);
+          //TODO cancellare la riga qui sotto, è solo per debug
+          //IdMember = "MEMBER1";
+          return IdMember;
+        } else {
+          console.log(response);
+
+        }
+      }).then(function(IdMember) {
+        return Vue.http.get('http://localhost:3000/api/Member/' + IdMember)
+      }).then(function(response) {
+        if (response.status == "200") {
+          console.log(response);
+          var risposta = JSON.parse(response.bodyText);
+          console.log(risposta);
+          return risposta.certificati;
+        } else {
+          console.log(response);
+        }
+      }).then(function(esami) {
+        for (let i = 0; i < esami.length; i++) {
+          esami[i] = esami[i].replace("resource:org.torverchain.Certificato#", "");
+        }
+        console.log(esami);
+        for (let i = 0; i < esami.length; i++) {
+          Vue.http.get('http://localhost:3000/api/Certificato/' + esami[i]).then(function(response) {
+            if (response.status == "200") {
+              console.log(response);
+              var risposta = JSON.parse(response.bodyText);
+              let id = risposta.idcert;
+              let titolo = risposta.titolo;
+              let descrizione = risposta.descrizione;
+              let enterilascio = risposta.enteRilascio.replace("resource:org.torverchain.Ente#", "");
+              let voto = risposta.voto;
+              if (voto === undefined) {
+                voto = "--";
+              }
+              $("#tableCertificati").append("<tr> <th>" + id + "</th><td>" + titolo + "</td><td>" + descrizione + "</td><td>" + enterilascio + "</td><td>" + voto + "</td></tr>");
+            } else {
+              console.log(response);
+
+            }
+          });
+        }
+      });
+    }
+  </script>
+
+</body>
+
+</html>

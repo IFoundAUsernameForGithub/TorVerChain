@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Ente - TorverChain</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1"></script>
+
+  <!-- Custom styles for this template -->
+  <link href="css/simple-sidebar.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <div id="wrapper">
+
+    <!-- Sidebar -->
+    <div id="sidebar-wrapper">
+      <ul class="sidebar-nav">
+        <li class="sidebar-brand">
+          <a href="#" id="ente">
+                        ENTE
+                    </a>
+        </li>
+        <li>
+          <a href="#" id="esame">Registra Esame</a>
+        </li>
+        <li>
+          <a href="#" id="bozza">Bozza Certificato</a>
+        </li>
+        <li>
+          <a href="#" id="rilascia">Rilascia Certificato</a>
+        </li>
+        <li>
+          <a href="#" id="rettifica">Rettifica Certificato</a>
+        </li>
+        <li>
+          <a href="#" id="test">Crea Test</a>
+        </li>
+        <li style="background: red">
+          <a href="index.html"> Logout </a>
+        </li>
+      </ul>
+    </div>
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div class="pos-f-t">
+      <nav class="navbar navbar-dark">
+        <a href="#menu-toggle" id="menu-toggle">
+              <button class="navbar-toggler" type="button" data-toggle="collapse"  aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+            </a>
+        <h2 style="color:#EEEEEE">TorverChain</h2>
+        <div style="style:transparent">.</div>
+      </nav>
+    </div>
+    <div id="page-content-wrapper">
+      <div class="container-fluid">
+        <h1>TorverChain</h1>
+        <p>TorverChain è un sistema sicuro ed affidabile per la conservazione e successiva fruizione degli esami e per la certificazione di qualifiche di uno studente universitario.</p>
+
+        <div id="enteform">
+          <h1>Ente</h1>
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Informazioni personali</h5>
+              <p class="card-text">Di seguito verranno mostrate le informazioni personali dell'ente </p>
+            </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item" id="idente"></li>
+              <li class="list-group-item" id="nome"></li>
+              <li class="list-group-item" id="paese"></li>
+              <li class="list-group-item" id="postcode"></li>
+            </ul>
+          </div>
+        </div><br>
+
+
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" id="esamiSostenutiButton">
+  I Tuoi Test
+</button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">I Tuoi Test</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+              </div>
+              <div class="modal-body">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">id</th>
+                      <th scope="col">Nome</th>
+                      <th scope="col">Descrizione</th>
+                    </tr>
+                  </thead>
+                  <tbody id="tableTest">
+                  </tbody>
+                </table>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#cartificatiPop">
+        Certificati
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="cartificatiPop" tabindex="-1" role="dialog" aria-labelledby="cartificatiPopLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="cartificatiPopLabel">Certificati emessi</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+              </div>
+              <div class="modal-body">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">ID</th>
+                      <th scope="col">Studente</th>
+                      <th scope="col">Titolo</th>
+                      <th scope="col">Descrizione</th>
+                      <th scope="col">Voto</th>
+                    </tr>
+                  </thead>
+                  <tbody id="tableCertificati">
+                  </tbody>
+                </table>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#entiAuth">
+  Le tue Bozze
+</button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="entiAuth" tabindex="-1" role="dialog" aria-labelledby="entiAuthLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="entiAuthLabel">Lista delle bozze Certificato create</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+              </div>
+              <div class="modal-body">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Titolo</th>
+                        <th scope="col">Descrizione</th>
+                      </tr>
+                    </tr>
+                  </thead>
+                  <tbody id="bozzeCertificati">
+
+                  </tbody>
+                </table>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#examV">
+  Esami verbalizzati
+</button><br><br>
+
+        <!-- Modal -->
+        <div class="modal fade" id="examV" tabindex="-1" role="dialog" aria-labelledby="examVLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="examVLabel">Lista degli esami verbalizzati</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+              </div>
+              <div class="modal-body">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <tr>
+                        <th scope="col">id</th>
+                        <th scope="col">Nome</th>
+                        <th scope="col">Data</th>
+                        <th scope="col">Voto</th>
+                        <th scope="col">Crediti</th>
+                        <th scope="col">Studente</th>
+                        <th scope="col">Programma</th>
+                        <th scope="col">SSD</th>
+                      </tr>
+                    </tr>
+                  </thead>
+                  <tbody id="esamiVerbalizzati">
+
+                  </tbody>
+                </table>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+
+        <div style="display:none;" id="esameform">
+          <h2>Registra Esame</h2>
+          <div class="form-group">
+            <label for="candidato">Candidato:</label>
+            <select class="form-control usr" id="usr">
+      						</select>
+          </div>
+          <div class="form-group">
+            <label for="candidato">Test sostenuto:</label>
+            <select class="form-control testst" id="testst">
+      			</select>
+          </div>
+          <div class="form-group">
+            <label for="voto">ID Esame</label>
+            <input type="text" class="form-control" id="idRegistraEsame">
+          </div>
+          <div class="form-group">
+            <label for="data">Data:</label>
+            <input type="date" class="form-control" id="dataRegistraEsame">
+          </div>
+          <div class="form-group">
+            <label for="voto">Voto:</label>
+            <input type="text" class="form-control" id="votoRegistraEsame">
+          </div>
+          <div class="form-group">
+            <label for="programma">Programma:</label>
+            <input type="text" class="form-control" id="programmaRegistraEsame">
+          </div>
+          <div class="form-group">
+            <label for="crediti">Crediti:</label>
+            <input type="number" class="form-control" id="creditiRegistraEsame">
+          </div>
+          <div class="form-group">
+            <label for="ssd">SSD:</label>
+            <input type="text" class="form-control" id="ssdRegistraEsame">
+          </div>
+          <div class="form-group">
+            <label for="nome">Nome esame:</label>
+            <input type="text" class="form-control" id="nomeRegistraEsame">
+          </div>
+          <div class="form-group">
+            <label for="descrizione">Descrizione:</label>
+            <input type="text" class="form-control" id="descrizioneRegistraEsame">
+          </div>
+          <button type="submit" class="btn btn-primary btn-md btn-block" id="submitRegistraEsame">Submit</button>
+        </div>
+
+        <div style="display:none;" id="bozzacertform">
+          <h2>Crea bozza certificato</h2>
+          <div class="form-group">
+            <label for="titolo">Titolo:</label>
+            <input type="text" class="form-control" id="titolocert">
+          </div>
+          <div class="form-group">
+            <label for="descrizionebozzacert">Descrizione:</label>
+            <input type="text" class="form-control" id="descrizionebozzacert">
+          </div>
+          <div class="form-group">
+            <label for="descrizionebozzacert">Id Bozza:</label>
+            <input type="text" class="form-control" id="idbozzacert">
+          </div>
+          <div class="form-group">
+            <label for="candidato">Test Obbligatori:</label>
+            <select class="form-control testst" id="mulselect" multiple>
+      			</select>
+          </div>
+          <button type="submit" class="btn btn-primary btn-md btn-block" id="submitBozzacert">Submit</button>
+        </div>
+
+        <div style="display:none;" id="rilasciacertform">
+          <h2>Rilascia certificato</h2>
+          <div class="form-group">
+            <label for="candidato">Candidato:</label>
+            <select class="form-control usr" id="candidatoRilasciaCertificato">
+      						</select>
+          </div>
+          <div class="form-group">
+            <label for="certificatorilascia">Certificato:</label>
+            <select class="form-control bozzacert" id="certificatoRilasciaCertificato">
+      						</select>
+          </div>
+          <div class="form-group">
+            <label for="descrizionebozzacert">Id Certificato:</label>
+            <input type="text" class="form-control" id="idRilasciaCertificato">
+          </div>
+          <div class="form-group">
+            <label for="votazione">Votazione: </label>
+            <div class="form-inline">
+              <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                <input type="text" class="form-control" id="votazioneRilasciaCertificato">
+              </div>
+              <div class="form-check mb-2 mr-sm-2 mb-sm-0">
+                <label class="form-check-label" for="calcolamedia">
+      							  <input class="form-check-input" type="checkbox" id="calcolamediaRilasciaCertificato">
+      							  Calcola media</label>
+              </div>
+              <div class="form-check mb-2 mr-sm-2 mb-sm-0">
+                <label class="form-check-label" for="calcolamediaponderata">
+      							  <input class="form-check-input" type="checkbox" id="calcolamediaponderataRilasciaCertificato">
+      							  Calcola media ponderata</label>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="datarilascio">Data rilascio:</label>
+            <input type="date" class="form-control" id="dataRilasciaCertificato">
+          </div>
+          <button type="submit" class="btn btn-primary btn-md btn-block" id="submitRilasciaCertificato">Submit</button>
+        </div>
+
+        <div style="display:none;" id="rettificacertform">
+          <h2>Rettifica certificato</h2>
+          <div class="form-group">
+            <label for="certificatovecchio">Certificato vecchio:</label>
+            <div class="form-group">
+
+              <select class="form-control cert" id="certificatovecchiorettifica">
+
+      								</select>
+
+              <!--
+      							<div class="form-check mb-2 mr-sm-2 mb-sm-0">
+      							  <label class="form-check-label" for="valido">
+      							  <input class="form-check-input" type="checkbox" id="valido">
+      							  Valido</label>
+      						  </div>
+                  -->
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="certificatorettifica">Certificato nuovo:</label>
+            <select class="form-control bozzacert" id="certificatorettifica">
+
+      						</select>
+          </div>
+          <div class="form-group">
+            <label for="votazionerettifica">Id Nuovo Certificato: </label>
+            <input type="text" class="form-control" id="idrettifica">
+          </div>
+          <div class="form-group">
+            <label for="votazionerettifica">Votazione: </label>
+            <input type="text" class="form-control" id="votazionerettifica">
+          </div>
+          <div class="form-group">
+            <label for="datarilasciorettifica">Data rilascio rettifica:</label>
+            <input type="date" class="form-control" id="datarilasciorettifica">
+          </div>
+          <button type="submit" class="btn btn-primary btn-md btn-block" id="submitrettifica">Submit</button>
+        </div>
+        <div style="display:none;" id="testform">
+          <h2>Crea Test</h2>
+          <div class="form-group">
+            <label for="nome">ID Test:</label>
+            <input type="text" class="form-control" id="idtest">
+          </div>
+          <div class="form-group">
+            <label for="nome">Nome Test:</label>
+            <input type="text" class="form-control" id="nometest">
+          </div>
+          <div class="form-group">
+            <label for="descrizionetest">Descrizione Test:</label>
+            <input type="text" class="form-control" id="descrizionetest">
+          </div>
+          <button type="submit" class="btn btn-primary btn-md btn-block" id="submitTest">Submit</button>
+        </div>
+      </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+
+  </div>
+  <!-- /#wrapper -->
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    function getTests() {
+
+      listaTest = [];
+
+      Vue.http.get('http://localhost:3000/api/Test').then(function(response) {
+        if (response.status == "200") {
+          var obj = JSON.parse(response.bodyText)
+          obj.forEach(function(test) {
+            $("#tableTest").append("<tr> <th>" + test.id + "</th><td>" + test.nome + "</td><td>" + test.descrizione + "</td></tr>");
+            //listaTest.push(j.codiceFiscale);
+          });
+          /*
+          listaTest.forEach(function(item) {
+            $(".usr").append("<option>" + item + "</option>");
+          });
+          */
+        } else {
+          console.log(response);
+
+        }
+      })
+
+
+    }
+
+
+    function getEsami() {
+      Vue.http.get('http://localhost:3000/api/Esame/').then(function(response) {
+        if (response.status == "200") {
+          var obj = JSON.parse(response.bodyText)
+          obj.forEach(function(test) {
+            $("#esamiVerbalizzati").append("<tr> <th>" + test.id + "</th><td>" + test.nome + "</td><td>" + test.data + "</td><td>" + test.voto + "</td><td>" + test.crediti + "</td><td>"+ test.candidato.replace("resource:org.torverchain.Member#", "")+"</td><td>"+test.programma+"</td><td>"+test.ssd+"</td></tr>");
+          });
+        } else {
+          console.log(response);
+
+        }
+      })
+    }
+
+    function getCertificati() {
+      Vue.http.get('http://localhost:3000/api/Certificato').then(function(response) {
+        if (response.status == "200") {
+          var obj = JSON.parse(response.bodyText)
+          obj.forEach(function(test) {
+            let voto;
+            if(response.voto === undefined){
+               voto = "--";
+            }
+            $("#tableCertificati").append("<tr> <th>" + test.idcert + "</th><td>" + test.member.replace("resource:org.torverchain.Member#", "") +"</th><td>" + test.titolo + "</td><td>" + test.descrizione + "</td><td>" + voto+ "</td></tr>");
+          });
+        } else {
+          console.log(response);
+
+        }
+      })
+    }
+
+    function getBozzaCertificati() {
+      Vue.http.get('http://localhost:3000/api/BozzaCertificato').then(function(response) {
+        if (response.status == "200") {
+          var obj = JSON.parse(response.bodyText)
+          obj.forEach(function(test) {
+            $("#bozzeCertificati").append("<tr> <th>" + test.idcert + "</th><td>" + test.titolo + "</td><td>" + test.descrizione + "</td></tr>");
+          });
+        } else {
+          console.log(response);
+
+        }
+      })
+    }
+
+    function getListaCondidati() {
+      var listaCandidati = [];
+      Vue.http.get('http://localhost:3000/api/Member').then(function(response) {
+        if (response.status == "200") {
+          var obj = JSON.parse(response.bodyText)
+          obj.forEach(function(j) {
+            listaCandidati.push(j.codiceFiscale);
+          });
+          listaCandidati.forEach(function(item) {
+            $(".usr").append("<option>" + item + "</option>");
+          });
+        } else {
+          console.log(response);
+
+        }
+      })
+    }
+
+    function getListaTest() {
+      var listaCandidati = [];
+      Vue.http.get('http://localhost:3000/api/Test').then(function(response) {
+        if (response.status == "200") {
+          var obj = JSON.parse(response.bodyText)
+          obj.forEach(function(j) {
+            listaCandidati.push(j.id);
+          });
+          listaCandidati.forEach(function(item) {
+            $(".testst").append("<option>" + item + "</option>");
+          });
+        } else {
+          console.log(response);
+
+        }
+      })
+    }
+
+    function getListaBozzaCertificati() {
+      var listaCandidati = [];
+      Vue.http.get('http://localhost:3000/api/BozzaCertificato').then(function(response) {
+        if (response.status == "200") {
+          var obj = JSON.parse(response.bodyText)
+          obj.forEach(function(j) {
+            listaCandidati.push(j.idcert);
+          });
+          listaCandidati.forEach(function(item) {
+            $(".bozzacert").append("<option>" + item + "</option>");
+          });
+        } else {
+          console.log(response);
+
+        }
+      })
+    }
+
+    function getListaCertificati() {
+      var listaCandidati = [];
+      Vue.http.get('http://localhost:3000/api/Certificato').then(function(response) {
+        if (response.status == "200") {
+          var obj = JSON.parse(response.bodyText)
+          obj.forEach(function(j) {
+            listaCandidati.push(j.idcert);
+          });
+          listaCandidati.forEach(function(item) {
+            $(".cert").append("<option>" + item + "</option>");
+          });
+        } else {
+          console.log(response);
+
+        }
+      })
+    }
+
+    function getInformazioniEnte() {
+      Vue.http.get('http://localhost:3000/api/system/ping').then(function(response) {
+        if (response.status == "200") {
+          var obj = JSON.parse(response.bodyText)
+          //console.log(obj.participant);
+          IdMember = obj.participant.substring(obj.participant.indexOf("#") + 1);
+          console.log(IdMember);
+          //TODO cancellare la riga qui sotto, è solo per debug
+          //IdMember = "ENTE1";
+          return IdMember;
+        } else {
+          console.log(response);
+
+        }
+      }).then(function(IdMember) {
+        return Vue.http.get('http://localhost:3000/api/Ente/' + IdMember)
+      }).then(function(response) {
+        if (response.status == "200") {
+          console.log(response);
+          var risposta = JSON.parse(response.bodyText);
+          console.log(risposta);
+
+          id = risposta.id;
+          nome = risposta.nome;
+          paese = risposta.country;
+          codicePostale = risposta.postcode;
+          $('#idente').html('<b>Id: </b>' + id);
+          $('#paese').html('<b>Paese: </b>' + paese);
+          $('#nome').html('<b>Nome: </b>' + nome);
+          $('#postcode').html('<b>Codice Postale: </b>' + codicePostale);
+          //console.log(lastName);
+        } else {
+          console.log(response);
+        }
+      });
+    }
+
+
+
+
+
+    window.addEventListener("load", function(event) {
+      //al caricamento della pagina popola i dati
+      Vue.http.headers.common['X-Access-Token'] = 'f4jxScvIoquwHalTMDC30Y8TfAgnZgI9qxfjHFvXocDHdqCNAGnfadcMXrc5qn1r';
+      getInformazioniEnte();
+      getListaCondidati();
+      getListaBozzaCertificati();
+      getListaCertificati();
+      getListaTest();
+      getTests();
+      getBozzaCertificati()
+      getCertificati()
+      getEsami()
+
+    });
+  </script>
+  <!-- Menu Toggle Script -->
+  <script>
+    $("#menu-toggle").click(function(e) {
+      e.preventDefault();
+      $("#wrapper").toggleClass("toggled");
+    });
+
+    $("#ente").click(function(e) {
+      e.preventDefault();
+      $("#enteform").slideDown();
+      $("#esameform").slideUp();
+      $("#bozzacertform").slideUp();
+      $("#rilasciacertform").slideUp();
+      $("#rettificacertform").slideUp();
+      $("#testform").slideUp();
+    })
+
+    $("#esame").click(function(e) {
+      e.preventDefault();
+      $("#enteform").slideUp();
+      $("#esameform").slideDown();
+      $("#bozzacertform").slideUp();
+      $("#rilasciacertform").slideUp();
+      $("#rettificacertform").slideUp();
+      $("#testform").slideUp();
+    })
+
+    $("#bozza").click(function(e) {
+      e.preventDefault();
+      $("#enteform").slideUp();
+      $("#esameform").slideUp();
+      $("#bozzacertform").slideDown();
+      $("#rilasciacertform").slideUp();
+      $("#rettificacertform").slideUp();
+      $("#testform").slideUp();
+    })
+
+    $("#rilascia").click(function(e) {
+      e.preventDefault();
+      $("#enteform").slideUp();
+      $("#esameform").slideUp();
+      $("#bozzacertform").slideUp();
+      $("#rilasciacertform").slideDown();
+      $("#rettificacertform").slideUp();
+      $("#testform").slideUp();
+    })
+
+    $("#rettifica").click(function(e) {
+      e.preventDefault();
+      $("#enteform").slideUp();
+      $("#esameform").slideUp();
+      $("#bozzacertform").slideUp();
+      $("#rilasciacertform").slideUp();
+      $("#rettificacertform").slideDown();
+      $("#testform").slideUp();
+    })
+
+    $("#test").click(function(e) {
+      e.preventDefault();
+      $("#enteform").slideUp();
+      $("#esameform").slideUp();
+      $("#bozzacertform").slideUp();
+      $("#rilasciacertform").slideUp();
+      $("#rettificacertform").slideUp();
+      $("#testform").slideDown();
+    })
+
+    $("#submitTest").click(function(e) {
+      let valID = $("#idtest").val();
+      let valNome = $("#nometest").val();
+      let valDescrizione = $("#descrizionetest").val();
+      Vue.http.get('http://localhost:3000/api/system/ping').then(function(response) {
+        if (response.status == "200") {
+          var obj = JSON.parse(response.bodyText)
+          //console.log(obj.participant);
+          IdMember = obj.participant.substring(obj.participant.indexOf("#") + 1);
+          console.log(IdMember);
+          //TODO cancellare la riga qui sotto, è solo per debug
+          //IdMember = "ENTE1";
+          return IdMember;
+        } else {
+          console.log(response);
+        }
+      }).then(function(IdEnte) {
+        console.log(IdEnte);
+        return Vue.http.post('http://localhost:3000/api/Test', {
+          "$class": "org.torverchain.Test",
+          "id": valID,
+          "nome": valNome,
+          "descrizione": valDescrizione,
+          "enteSvolgimento": "resource:org.torverchain.Ente#" + IdEnte
+        })
+      }).then(function(response) {
+        if (response.status == "200") {
+          window.location.reload(true);
+          alert("Test Creato!");
+
+        } else {
+          console.log(response);
+
+        }
+      })
+    })
+
+    $("#submitBozzacert").click(function(e) {
+      let valID = $("#idbozzacert").val();
+      let valNome = $("#titolocert").val();
+      let valDescrizione = $("#descrizionebozzacert").val();
+      let valTestObbligatori = [];
+      valTestObbligatori = $("#mulselect").val();
+      var i = 0;
+      for (i = 0; i < valTestObbligatori.length; i++) {
+        valTestObbligatori[i] = "resource:org.torverchain.Test#" + valTestObbligatori[i];
+      }
+      //console.log(valTestObbligatori);
+      Vue.http.get('http://localhost:3000/api/system/ping').then(function(response) {
+        if (response.status == "200") {
+          var obj = JSON.parse(response.bodyText)
+          //console.log(obj.participant);
+          IdMember = obj.participant.substring(obj.participant.indexOf("#") + 1);
+          console.log(IdMember);
+          //TODO cancellare la riga qui sotto, è solo per debug
+          //IdMember = "ENTE1";
+          return IdMember;
+        } else {
+          console.log(response);
+        }
+      }).then(function(IdEnte) {
+        console.log(IdEnte);
+        return Vue.http.post('http://localhost:3000/api/BozzaCertificato', {
+          "$class": "org.torverchain.BozzaCertificato",
+          "idcert": valID,
+          "titolo": valNome,
+          "descrizione": valDescrizione,
+          "enteRilascio": "resource:org.torverchain.Ente#" + IdEnte,
+          "testObbligatori": valTestObbligatori
+        })
+      }).then(function(response) {
+        if (response.status == "200") {
+          window.location.reload(true);
+          alert("Bozza Certificato Creata!");
+
+        } else {
+          console.log(response);
+
+        }
+      })
+    })
+
+    $("#submitRegistraEsame").click(function(e) {
+      let valID = $("#idRegistraEsame").val();
+      let valNome = $("#nomeRegistraEsame").val();
+      let valDescrizione = $("#descrizioneRegistraEsame").val();
+      let valSSd = $("#ssdRegistraEsame").val();
+      let crediti = $("#creditiRegistraEsame").val();
+      let data = $("#dataRegistraEsame").val();
+      let voto = $("#votoRegistraEsame").val();
+      let programma = $("#programmaRegistraEsame").val();
+      let membercert = $(".usr").val();
+      let testcert = $(".testst").val();
+      Vue.http.get('http://localhost:3000/api/system/ping').then(function(response) {
+        if (response.status == "200") {
+          var obj = JSON.parse(response.bodyText)
+          //console.log(obj.participant);
+          IdMember = obj.participant.substring(obj.participant.indexOf("#") + 1);
+          console.log(IdMember);
+          //TODO cancellare la riga qui sotto, è solo per debug
+          //IdMember = "ENTE1";
+          return IdMember;
+        } else {
+          console.log(response);
+        }
+      }).then(function(IdEnte) {
+        console.log(IdEnte);
+        var sendjson = {
+          "$class": "org.torverchain.RegistraEsame",
+          "id": valID,
+          "data": data,
+          "voto": voto,
+          "programma": programma,
+          "crediti": crediti,
+          "ssd": valSSd,
+          "enteSvolgimento": "resource:org.torverchain.Ente#" + IdEnte,
+          "sostenitore": "resource:org.torverchain.Member#" + membercert,
+          "testSostenuto": "resource:org.torverchain.Test#" + testcert
+        };
+        console.log(sendjson);
+        return Vue.http.post('http://localhost:3000/api/RegistraEsame', sendjson)
+      }).then(function(response) {
+        if (response.status == "200") {
+          window.location.reload(true);
+          alert("Esame Registrato Con successo!");
+
+        } else {
+          alert("Errore nella registrazione dell'esame");
+          console.log(response);
+
+        }
+      })
+    })
+
+    $("#submitRilasciaCertificato").click(function(e) {
+      let valID = $("#idRilasciaCertificato").val();
+      var media = false;
+      var mediaponderata = false;
+      if ($("#calcolamediaponderataRilasciaCertificato").attr('checked')) {
+        mediaponderata = true;
+      } else {
+        mediaponderata = false;
+      }
+      if ($("#calcolamediaRilasciaCertificato").attr('checked')) {
+        media = true;
+      } else {
+        media = false;
+      }
+      let data = $("#dataRilasciaCertificato").val();
+      let voto = $("#votazioneRilasciaCertificato").val();
+      let membercert = $("#candidatoRilasciaCertificato").val();
+      let cert = $("#certificatoRilasciaCertificato").val();
+      Vue.http.get('http://localhost:3000/api/system/ping').then(function(response) {
+        if (response.status == "200") {
+          var obj = JSON.parse(response.bodyText)
+          //console.log(obj.participant);
+          IdMember = obj.participant.substring(obj.participant.indexOf("#") + 1);
+          console.log(IdMember);
+          //TODO cancellare la riga qui sotto, è solo per debug
+          //IdMember = "ENTE1";
+          return IdMember;
+        } else {
+          console.log(response);
+        }
+      }).then(function(IdEnte) {
+        console.log(IdEnte);
+        var sendjson = {
+          "$class": "org.torverchain.RilasciaCertificato",
+          "certificato": "resource:org.torverchain.BozzaCertificato#" + cert,
+          "idCertificato": valID,
+          "dataRilascio": data,
+          "votazione": voto,
+          "calcolaMedia": media,
+          "calcolaMediaPonderata": mediaponderata,
+          "member": "resource:org.torverchain.Member#" + membercert
+        };
+        console.log(sendjson);
+        return Vue.http.post('http://localhost:3000/api/RilasciaCertificato', sendjson)
+      }).then(function(response) {
+        if (response.status == "200") {
+          window.location.reload(true);
+          alert("Esame Registrato Con successo!");
+
+        } else {
+          alert("Errore nella registrazione dell'esame");
+          console.log(response);
+
+        }
+      })
+    })
+
+
+
+
+
+
+
+    $("#submitrettifica").click(function(e) {
+      let valID = $("#idrettifica").val();
+
+      let data = $("#datarilasciorettifica").val();
+      let voto = $("#votazionerettifica").val();
+      let certV = $("#certificatorettifica").val();
+      let certN = $("#certificatovecchiorettifica").val();
+      Vue.http.get('http://localhost:3000/api/system/ping').then(function(response) {
+        if (response.status == "200") {
+          var obj = JSON.parse(response.bodyText)
+          //console.log(obj.participant);
+          IdMember = obj.participant.substring(obj.participant.indexOf("#") + 1);
+          console.log(IdMember);
+          //TODO cancellare la riga qui sotto, è solo per debug
+          //IdMember = "ENTE1";
+          return IdMember;
+        } else {
+          console.log(response);
+        }
+      }).then(function(IdEnte) {
+        console.log(IdEnte);
+        var sendjson = {
+          "$class": "org.torverchain.RettificaCertificato",
+          "certificatoVecchio": "resource:org.torverchain.Certificato#" + certV,
+          "certificato": "resource:org.torverchain.BozzaCertificato#" + certN,
+          "id": valID,
+          "dataRilascio": data,
+          "votazione": voto,
+          "valido": true
+        };
+        console.log(sendjson);
+        return Vue.http.post('http://localhost:3000/api/RettificaCertificato', sendjson)
+      }).then(function(response) {
+        if (response.status == "200") {
+          window.location.reload(true);
+          alert("Esame Registrato Con successo!");
+
+        } else {
+          alert("Errore nella registrazione dell'esame");
+          console.log(response);
+
+        }
+      })
+    })
+  </script>
+
+</body>
+
+</html>

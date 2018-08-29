@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Login - TorverChain</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1"></script>
+
+  <!-- Custom styles for this template -->
+  <link href="css/simple-sidebar.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <div id="wrapper">
+
+    <!-- Sidebar -->
+    <div id="sidebar-wrapper">
+      <ul class="sidebar-nav">
+        <li class="sidebar-brand">
+          <a href="#">
+                        TorverChain
+                    </a>
+        </li>
+        <li>
+          <a href="#">Ente</a>
+        </li>
+        <li>
+          <a href="#">Member</a>
+        </li>
+      </ul>
+    </div>
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div class="pos-f-t">
+      <nav class="navbar navbar-dark">
+        <a href="#menu-toggle" id="menu-toggle">
+
+        </a>
+      </nav>
+    </div>
+    <div id="page-content-wrapper">
+      <div class="container-fluid">
+        <img src="Asset/Images/logo.2.2.png" style="width:100px; margin-right:10px" class="rounded float-left" alt="Logo">
+        <h1>TorverChain</h1>
+        <p>Benvenuto in Torverchain! Il progetto Torverchain consiste in un sistema sicuro ed affidabile per la conservazione e successiva fruizione della carriera di uno studente.</p>
+      </div>
+      <br>
+      <div class="container-fluid">
+
+        <h2>Upload Card</h2>
+        <div class="card text-center">
+          <div class="card-header">
+            Upload Card
+          </div>
+          <div class="card-body">
+
+            <p class="card-text">Carica la tua carta qui sotto per effettuare il login!</p>
+            <div class="custom-file">
+        			<div class="form-group">
+        			  <input name="file" type="file" class="custom-file-input" id="validatedCustomFile" required>
+                      <label class="custom-file-label" for="validatedCustomFile" id="chooseFile">Choose file...</label>
+                      <div class="invalid-feedback">Invalid file</div>
+        			</div>
+              <div class="form-group">
+
+                <label for="titolo">Username: </label>
+                <input type="text" class="form-control" id="username" value="Username">
+              </div>
+              <div class="form-group">
+                <label for="enterevoca">Accedi come:</label>
+                <select class="form-control ente" id="selectLogin">
+                  <option id="accessoEnte">Ente</option>
+                  <option id="accessoMembro">Membro</option>
+    						</select>
+              </div>
+            </div><br><br>
+            <button type="submit" class="btn btn-primary" id="submitButton">Submit</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+
+  </div>
+  <!-- /#wrapper -->
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+
+  <script>
+    var app = new Vue({
+      el: '#app',
+      data: {
+        message: 'Hello Vue!'
+      }
+    })
+  </script>
+
+  <!-- Menu Toggle Script -->
+  <script>
+    const token = 'f4jxScvIoquwHalTMDC30Y8TfAgnZgI9qxfjHFvXocDHdqCNAGnfadcMXrc5qn1r';
+
+    function ping() {
+      Vue.http.get('http://localhost:3000/api/system/ping').then(function(response) {
+        if (response.status == "200") {
+          console.log(response);
+        } else {
+          console.log(response);
+
+        }
+      })
+    }
+
+    function checktoken() {
+
+      Vue.http.headers.common['X-Access-Token'] = token;
+      /*
+      Vue.http.get('http://localhost:3000/api/system/ping').then(function(response) {
+        if (response.status == "200") {
+
+        } else if (response.status == "401") {
+
+          window.location.replace("http://localhost:3000/auth/github");
+        }else {
+          console.log(response);
+
+        }
+      })
+      */
+
+    }
+
+    window.addEventListener("load", function(event) {
+      checktoken();
+
+    });
+    $("#menu-toggle").click(function(e) {
+      e.preventDefault();
+      $("#wrapper").toggleClass("toggled");
+    });
+
+    var file;
+
+    $(':file').on('change', function() {
+      file = this.files[0];
+      $('#chooseFile').html('<b>File Caricato!</b>');
+    });
+
+    $("#submitButton").click(function() {
+      var usr = $("#username").val();
+      if (usr == undefined) {
+        usr = '';
+      }
+
+
+      var formData = new FormData();
+      formData.append("card", file);
+      Vue.http.post('http://localhost:3000/api/wallet/import?name=' + usr, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          'Accept': 'application/json'
+        }
+      }).then(function(response) {
+        if (response.status == "200") {
+          console.log(response);
+          return;
+        } else if (response.status == "401") {
+          console.log(response);
+          return;
+        } else {
+          console.log(response);
+          return;
+        }
+      }).then(function() {
+        Vue.http.post('http://localhost:3000/api/wallet/' + usr + '/setDefault', {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            'Accept': 'application/json'
+          }
+        }).then(function(response) {
+          if (response.status == "200") {
+            console.log(response);
+            return;
+          } else {
+            console.log(response);
+            return;
+          }
+        })
+      }).then(function() {
+
+        if($("#selectLogin").val() == 'Membro'){
+          window.location.href = "membropage.html";
+        } else {
+          window.location.href = "entepage.html";
+        }
+
+        /*
+        var xhr = new XMLHttpRequest();
+
+        xhr.open("GET", "http://localhost:3000/api/system/ping", true);
+        xhr.setRequestHeader('X-Access-Token', token);
+        xhr.onload = function(e) {
+          if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
+              console.log(xhr.responseText);
+            } else {
+              console.error(xhr.statusText);
+            }
+          }
+        };
+        xhr.onerror = function(e) {
+          console.error(xhr.statusText);
+        };
+        xhr.send(null);
+        */
+        /*
+        Vue.http.get('http://localhost:3000/api/system/ping').then(function(response) {
+          if (response.status == "200") {
+            var obj = JSON.parse(response.bodyText)
+            //console.log(obj.participant);
+            console.log(obj.participant);
+            return obj.participant;
+
+          } else {
+            console.log("qui");
+            console.log(response);
+
+          }
+        }).then(function(partecipant){
+          if(partecipant.includes("Member")){
+            console.log("redirect Member");
+            //window.location.href = "membropage.html";
+          } else {
+            console.log("redirect Ente");
+            //window.location.href = "entepage.html";
+          }
+        })
+        */
+      })
+    });
+  </script>
+
+</body>
+
+</html>
